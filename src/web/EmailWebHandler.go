@@ -14,10 +14,10 @@ func SendMailNotification(w http.ResponseWriter, r *http.Request) {
 	message := urlQuery.Get("message")
 	receiver := strings.Split(urlQuery.Get("receivers"), ",")
 	bodyMessage := service.WritePlainEmail(receiver, subject, message)
-	success := service.SendMail(receiver, subject, bodyMessage)
+	err := service.SendMail(receiver, subject, bodyMessage)
 
-	if !success {
-		fmt.Fprintf(w, "E-Mail Notificantion Failed")
+	if err != nil{
+		fmt.Fprintf(w, "E-Mail Notificantion Failed %d", err)
 		return
 	}
 

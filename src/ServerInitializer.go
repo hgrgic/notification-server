@@ -15,5 +15,8 @@ func status(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", status)
 	http.HandleFunc("/email", web.SendMailNotification)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		log.Fatal("ListenAndServe:", err)
+	}
 }

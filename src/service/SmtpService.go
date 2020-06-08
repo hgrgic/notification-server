@@ -19,10 +19,10 @@ var (
 )
 
 
-func SendMail(Dest []string, Subject, bodyMessage string) bool {
+func SendMail(Dest []string, Subject, bodyMessage string) error {
 	if propErr != nil {
 		log.Println("Email properties not loaded correctly.", propErr)
-		return false
+		return propErr
 	}
 
 	msg := "From: " + sender.User + "\n" +
@@ -35,10 +35,10 @@ func SendMail(Dest []string, Subject, bodyMessage string) bool {
 
 	if err != nil {
 		fmt.Printf("smtp error: %s", err)
-		return false
+		return err
 	}
 
-	return true
+	return nil
 }
 
 
